@@ -1,0 +1,659 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* ==============================
+   1. GENERAL SETTINGS
+============================== */
+
+:root {
+    --cream: #fffaf5;
+    --pink: #f5dce1;
+    --rose: #d58e9c;
+    --dark-rose: #a65f71;
+    --brown: #654b4b;
+    --gold: #c6a36a;
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--brown);
+    background:
+        radial-gradient(ellipse at 15% 20%, #f8e4e8 0%, transparent 45%),
+        radial-gradient(ellipse at 85% 80%, #f2e3d2 0%, transparent 45%),
+        var(--cream);
+    overflow-x: hidden;
+}
+
+button {
+    font: inherit;
+}
+
+button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 5px;
+}
+
+.background-glow {
+    position: fixed;
+    width: 350px;
+    height: 350px;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #f4d5dc;
+    filter: blur(100px);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.stars {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.floating-star {
+    position: absolute;
+    color: var(--gold);
+    opacity: 0;
+    animation: floatStar 7s linear forwards;
+}
+
+@keyframes floatStar {
+    0% {
+        transform: translateY(10vh) rotate(0deg);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.6;
+    }
+
+    85% {
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: translateY(-100vh) rotate(180deg);
+        opacity: 0;
+    }
+}
+
+
+/* ==============================
+   2. HEADER
+============================== */
+
+.top-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 28px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 5;
+}
+
+.logo {
+    color: var(--brown);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.music-button {
+    padding: 10px 17px;
+    border: 1px solid #e9cbd0;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.55);
+    color: var(--brown);
+    font-size: 11px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.music-button:hover {
+    background: var(--white);
+    transform: translateY(-2px);
+}
+
+
+/* ==============================
+   3. SCREENS
+============================== */
+
+main {
+    position: relative;
+    z-index: 1;
+}
+
+.screen {
+    display: none;
+    min-height: 100vh;
+    width: 100%;
+    padding: 120px 24px 90px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    animation: screenAppear 0.7s ease;
+}
+
+.screen.active {
+    display: flex;
+}
+
+@keyframes screenAppear {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.eyebrow {
+    margin-bottom: 24px;
+    color: var(--dark-rose);
+    font-size: 10px;
+    letter-spacing: 3px;
+    line-height: 1.8;
+}
+
+h1,
+h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: normal;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: clamp(42px, 7vw, 78px);
+}
+
+h2 {
+    font-size: clamp(32px, 5vw, 50px);
+}
+
+h1 span,
+h2 span {
+    color: var(--rose);
+    font-style: italic;
+}
+
+.description {
+    max-width: 460px;
+    margin-top: 22px;
+    color: #927b7b;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+
+/* ==============================
+   4. BUTTONS
+============================== */
+
+.main-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    min-height: 52px;
+    margin-top: 32px;
+    padding: 15px 26px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: var(--brown);
+    color: var(--white);
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+    transition: transform 0.25s, background 0.25s;
+}
+
+.main-button:hover:not(:disabled) {
+    background: var(--dark-rose);
+    transform: translateY(-3px);
+}
+
+.main-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.main-button span {
+    font-size: 17px;
+}
+
+.tiny-text {
+    margin-top: 25px;
+    color: #b09b96;
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+
+/* ==============================
+   5. ENVELOPE
+============================== */
+
+.envelope-container {
+    width: 180px;
+    height: 130px;
+    margin-top: 45px;
+    margin-bottom: 12px;
+    perspective: 700px;
+}
+
+.envelope {
+    position: relative;
+    width: 180px;
+    height: 115px;
+    animation: envelopeFloat 3s ease-in-out infinite;
+}
+
+@keyframes envelopeFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-9px);
+    }
+}
+
+.envelope-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    background: #e9c3c9;
+}
+
+.envelope-letter {
+    position: absolute;
+    top: 8px;
+    left: 15px;
+    width: 150px;
+    height: 85px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--cream);
+    color: var(--rose);
+    font-size: 35px;
+    transition: transform 0.5s;
+}
+
+.envelope-front {
+    position: absolute;
+    inset: 0;
+    background: #e8bfc8;
+    clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+}
+
+.envelope-flap {
+    position: absolute;
+    inset: 0;
+    background: #f2d3d9;
+    clip-path: polygon(0 0, 100% 0, 50% 60%);
+    transform-origin: top;
+    transition: transform 0.5s;
+    z-index: 2;
+}
+
+.envelope-heart {
+    position: absolute;
+    top: 47px;
+    left: 76px;
+    color: var(--dark-rose);
+    font-size: 25px;
+    z-index: 3;
+}
+
+.envelope.opened .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+
+/* ==============================
+   6. LETTER
+============================== */
+
+.letter-card {
+    width: min(100%, 550px);
+    margin-top: 30px;
+    padding: 38px;
+    border: 1px solid #f0dedb;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 20px 60px rgba(115, 73, 73, 0.07);
+    text-align: left;
+}
+
+.letter-decoration {
+    margin-bottom: 20px;
+    color: var(--rose);
+    font-size: 30px;
+    text-align: center;
+}
+
+.letter-greeting {
+    margin-bottom: 20px;
+    font-family: Georgia, serif;
+    font-size: 19px;
+    font-style: italic;
+}
+
+.letter-message {
+    white-space: pre-line;
+    color: #806d6d;
+    font-size: 14px;
+    line-height: 2;
+}
+
+.letter-signature {
+    margin-top: 25px;
+    color: var(--dark-rose);
+    font-family: Georgia, serif;
+    font-style: italic;
+}
+
+
+/* ==============================
+   7. VIDEO
+============================== */
+
+.video-frame {
+    position: relative;
+    width: min(100%, 650px);
+    min-height: 260px;
+    margin-top: 35px;
+    overflow: hidden;
+    border: 1px solid #e7cbd0;
+    border-radius: 8px;
+    background: #f1e1df;
+    box-shadow: 0 20px 60px rgba(115, 73, 73, 0.1);
+}
+
+.video-frame video {
+    position: relative;
+    display: block;
+    width: 100%;
+    min-height: 260px;
+    max-height: 420px;
+    object-fit: contain;
+    z-index: 2;
+}
+
+.video-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+    background: linear-gradient(135deg, #f8e7e9, #f5e9dc);
+}
+
+.play-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    border: 1px solid var(--rose);
+    border-radius: 50%;
+    color: var(--dark-rose);
+}
+
+.video-placeholder h3 {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    font-weight: normal;
+}
+
+.video-placeholder p {
+    color: #927b7b;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.video-frame.has-video .video-placeholder {
+    display: none;
+}
+
+
+/* ==============================
+   8. WISHES
+============================== */
+
+.wish-counter {
+    margin-top: 28px;
+    color: var(--dark-rose);
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.stars-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 65px);
+    gap: 20px;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+.wish-star {
+    width: 65px;
+    height: 65px;
+    border: 1px solid #e9cbd0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.65);
+    color: var(--gold);
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.wish-star:hover {
+    transform: scale(1.12) rotate(10deg);
+    background: #fff0f2;
+}
+
+.wish-star.discovered {
+    background: var(--rose);
+    color: white;
+    border-color: var(--rose);
+    transform: scale(1.05);
+}
+
+.wish-message {
+    width: min(100%, 440px);
+    min-height: 65px;
+    margin-top: 28px;
+    padding: 18px;
+    border: 1px solid #f0dedb;
+    background: rgba(255, 255, 255, 0.55);
+    color: var(--brown);
+    font-family: Georgia, serif;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+
+/* ==============================
+   9. FINAL CELEBRATION
+============================== */
+
+.celebration-symbol {
+    margin-bottom: 22px;
+    color: var(--rose);
+    font-size: 65px;
+    animation: heartBeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
+}
+
+.final-message {
+    max-width: 510px;
+    margin-top: 25px;
+    color: #927b7b;
+    font-size: 14px;
+    line-height: 2;
+}
+
+.birthday-cake {
+    margin-top: 28px;
+    font-size: 55px;
+}
+
+.final-note {
+    margin-top: 20px;
+    color: var(--dark-rose);
+    font-family: Georgia, serif;
+    font-style: italic;
+}
+
+
+/* ==============================
+   10. FOOTER
+============================== */
+
+.site-footer {
+    position: relative;
+    z-index: 2;
+    padding: 18px;
+    color: #b09b96;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+
+/* ==============================
+   11. RESPONSIVE DESIGN
+============================== */
+
+@media (max-width: 600px) {
+
+    .top-bar {
+        padding: 22px 5%;
+    }
+
+    .logo {
+        font-size: 9px;
+        letter-spacing: 1.5px;
+    }
+
+    .music-button {
+        padding: 9px 12px;
+        font-size: 10px;
+    }
+
+    .screen {
+        padding: 115px 18px 65px;
+    }
+
+    .eyebrow {
+        font-size: 9px;
+        letter-spacing: 2px;
+    }
+
+    .description {
+        font-size: 13px;
+    }
+
+    .letter-card {
+        padding: 25px;
+    }
+
+    .letter-message {
+        font-size: 13px;
+    }
+
+    .stars-grid {
+        grid-template-columns: repeat(3, 60px);
+        gap: 15px;
+    }
+
+    .wish-star {
+        width: 60px;
+        height: 60px;
+    }
+
+    .video-frame,
+    .video-frame video {
+        min-height: 220px;
+    }
+}
+
+@media (max-width: 350px) {
+
+    .top-bar {
+        padding: 18px 12px;
+    }
+
+    .logo {
+        font-size: 8px;
+    }
+
+    .screen {
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    .stars-grid {
+        grid-template-columns: repeat(3, 52px);
+        gap: 12px;
+    }
+
+    .wish-star {
+        width: 52px;
+        height: 52px;
+        font-size: 25px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms ;
+        animation-iteration-count: 1 ;
+        scroll-behavior: auto ;
+    }
+}
+
